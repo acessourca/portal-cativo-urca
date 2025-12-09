@@ -12,53 +12,88 @@
       padding: 0;
       box-sizing: border-box;
     }
-    body, html {
+
+    html, body {
+      width: 100%;
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f7f9fa 0%, #e8f0eb 100%);
+    }
+
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      position: relative;
+      overflow: hidden;
     }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 2;
+    }
+
     .container {
-      background: #fff;
+      position: relative;
+      z-index: 3;
+      background: white;
       max-width: 480px;
       width: 100%;
       padding: 40px 35px;
       border-radius: 14px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
       color: #1a1a1a;
       text-align: center;
     }
+
     .logo {
       max-width: 180px;
       margin: 0 auto 35px;
       display: block;
     }
-    p.subtitle {
+
+    .subtitle {
       color: #4d7a53;
       margin-bottom: 25px;
       font-size: 1.2rem;
       font-weight: 600;
     }
+
     form {
       display: flex;
       flex-direction: column;
       gap: 22px;
       text-align: left;
     }
+
     .input-group {
       position: relative;
       display: flex;
       align-items: center;
     }
+
     .input-group i {
       position: absolute;
       left: 14px;
       color: #007a33;
       font-size: 1.2rem;
     }
+
     input, textarea {
       width: 100%;
       padding: 14px 14px 14px 42px;
@@ -66,18 +101,20 @@
       border-radius: 10px;
       font-size: 1rem;
       color: #1a1a1a;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       resize: none;
     }
+
     input:focus, textarea:focus {
       outline: none;
       border-color: #007a33;
       box-shadow: 0 0 6px rgba(0, 122, 51, 0.4);
     }
+
     textarea {
       min-height: 90px;
     }
+
     button {
       background-color: #007a33;
       color: white;
@@ -87,14 +124,14 @@
       font-size: 1.15rem;
       font-weight: 700;
       cursor: pointer;
-      transition: background-color 0.3s ease;
       box-shadow: 0 6px 12px rgba(0, 122, 51, 0.5);
       letter-spacing: 0.05em;
     }
+
     button:hover {
       background-color: #005d26;
-      box-shadow: 0 8px 18px rgba(0, 93, 38, 0.65);
     }
+
     footer {
       margin-top: 30px;
       font-size: 0.85rem;
@@ -102,11 +139,12 @@
       font-weight: 500;
       letter-spacing: 0.02em;
     }
+
     @media (max-width: 520px) {
       .container {
         padding: 30px 25px;
       }
-      p.subtitle {
+      .subtitle {
         font-size: 1.1rem;
         margin-bottom: 20px;
       }
@@ -114,25 +152,31 @@
   </style>
 </head>
 <body>
-  <div class="container" role="main" aria-label="Formulário de acesso de visitantes">
+  <video autoplay muted loop playsinline>
+    <source src="background-video.mp4" type="video/mp4" />
+  </video>
+
+  <div class="overlay"></div>
+
+  <div class="container">
     <img src="https://acessogv.github.io/logogv/images.png" alt="Logo Gás Verde" class="logo" />
     <p class="subtitle">Preencha o formulário para liberar o acesso à internet.</p>
-    <form id="visitForm" novalidate>
+    <form id="visitForm">
       <div class="input-group">
         <i class="fas fa-user"></i>
-        <input type="text" name="nome" id="nome" placeholder="Nome completo" required aria-required="true" />
+        <input type="text" id="nome" placeholder="Nome completo" required />
       </div>
       <div class="input-group">
         <i class="fas fa-envelope"></i>
-        <input type="email" name="email" id="email" placeholder="E-mail" required aria-required="true" />
+        <input type="email" id="email" placeholder="E-mail" required />
       </div>
       <div class="input-group">
         <i class="fas fa-phone"></i>
-        <input type="tel" name="telefone" id="telefone" placeholder="Telefone" required aria-required="true" />
+        <input type="tel" id="telefone" placeholder="Telefone" required />
       </div>
       <div class="input-group">
         <i class="fas fa-comment"></i>
-        <textarea name="motivo" id="motivo" placeholder="Motivo da visita" required aria-required="true"></textarea>
+        <textarea id="motivo" placeholder="Motivo da visita" required></textarea>
       </div>
       <button type="submit">Enviar e Acessar</button>
     </form>
@@ -140,32 +184,10 @@
   </div>
 
   <script>
-    // Redirecionamento para o formulário se for carregado fora do fluxo
-    window.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      if (!params.has('base_grant_url')) {
-        const fallback = "https://acessogv.github.io/formulario-gasverde/";
-        if (window.location.href !== fallback) {
-          window.location.href = fallback;
-        }
-      }
-    });
-
     document.getElementById('visitForm').addEventListener('submit', function(e) {
       e.preventDefault();
-
-      const nome = document.getElementById('nome').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const telefone = document.getElementById('telefone').value.trim();
-      const motivo = document.getElementById('motivo').value.trim();
-
-      if (!nome || !email || !telefone || !motivo) {
-        alert('Por favor, preencha todos os campos antes de enviar.');
-        return;
-      }
-
-      const params = window.location.search;
-      window.location.href = 'aguarde.html' + params;
+      const params = new URLSearchParams(window.location.search);
+      window.location.href = 'aguarde.html' + window.location.search;
     });
   </script>
 </body>
