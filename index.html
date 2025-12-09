@@ -86,6 +86,10 @@
       position: relative;
       display: flex;
       align-items: center;
+      border: 1.8px solid #003d82;
+      border-radius: 10px;
+      padding: 0;
+      background: white;
     }
 
     .input-group i {
@@ -93,27 +97,41 @@
       left: 14px;
       color: #003d82;
       font-size: 1.2rem;
+      pointer-events: none;
     }
 
     input, textarea {
       width: 100%;
-      padding: 14px;
-      border: 1.8px solid #003d82;
+      padding: 14px 14px 14px 42px;
+      border: none;
       border-radius: 10px;
       font-size: 1rem;
       color: #1a1a1a;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       resize: none;
+      background: transparent;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #999;
     }
 
     input:focus, textarea:focus {
       outline: none;
+    }
+
+    .input-group:focus-within {
       border-color: #FF8C00;
       box-shadow: 0 0 6px rgba(255, 140, 0, 0.4);
     }
 
+    .input-group:focus-within i {
+      color: #FF8C00;
+    }
+
     textarea {
       min-height: 90px;
+      padding-top: 14px;
     }
 
     button {
@@ -164,15 +182,19 @@
     <p class="subtitle">Preencha o formulário para liberar o acesso à internet.</p>
     <form id="visitForm">
       <div class="input-group">
+        <i class="fas fa-user"></i>
         <input type="text" id="nome" placeholder="Nome completo" required />
       </div>
       <div class="input-group">
+        <i class="fas fa-envelope"></i>
         <input type="email" id="email" placeholder="E-mail" required />
       </div>
       <div class="input-group">
+        <i class="fas fa-phone"></i>
         <input type="tel" id="telefone" placeholder="Telefone" required />
       </div>
       <div class="input-group">
+        <i class="fas fa-comment"></i>
         <textarea id="motivo" placeholder="Motivo da visita" required></textarea>
       </div>
       <button type="submit">Enviar e Acessar</button>
