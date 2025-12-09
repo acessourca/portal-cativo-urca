@@ -10,46 +10,21 @@
       height: 100%;
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow: hidden;
+      background: linear-gradient(135deg, #f7f9fa 0%, #e8f0eb 100%);
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
       color: #1a1a1a;
       padding: 20px;
-      position: relative;
-    }
-
-    /* Vídeo de fundo */
-    #background-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -2;
-    }
-
-    /* Overlay leve */
-    .video-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.2);
-      z-index: -1;
     }
 
     .message-box {
-      background: rgba(255, 255, 255, 0.98);
+      background: #fff;
       padding: 40px 30px;
       border-radius: 14px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
       max-width: 480px;
-      position: relative;
-      z-index: 1;
     }
 
     h1 {
@@ -112,16 +87,6 @@
   </script>
 </head>
 <body>
-  <!-- Vídeo de fundo -->
-  <video id="background-video" autoplay loop muted playsinline>
-    <source src="background-video.mp4" type="video/mp4">
-    Seu navegador não suporta vídeos HTML5.
-  </video>
-
-  <!-- Overlay leve -->
-  <div class="video-overlay"></div>
-
-  <!-- Conteúdo principal -->
   <div class="message-box" role="main">
     <h1>Acesso Liberado</h1>
     <p>Você finalizou o preenchimento com sucesso.</p>
