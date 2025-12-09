@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Acesso Liberado</title>
-  <link rel="icon" type="image/svg+xml" href="https://acessogv.github.io/logogv/favicon.svg" />
+  <title>Acesso Liberado - Grupo Urca Energia</title>
+  <link rel="icon" href="logo.png" type="image/png" />
   <style>
     * {
       margin: 0;
@@ -59,8 +59,14 @@
       color: #1a1a1a;
     }
 
+    .logo {
+      max-width: 150px;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
     h1 {
-      color: #4d7a53;
+      color: #003d82;
       margin-bottom: 20px;
       font-size: 2rem;
     }
@@ -74,7 +80,7 @@
 
     .loader {
       border: 6px solid #f3f3f3;
-      border-top: 6px solid #007a33;
+      border-top: 6px solid #FF8C00;
       border-radius: 50%;
       width: 40px;
       height: 40px;
@@ -108,6 +114,7 @@
   <div class="overlay"></div>
 
   <div class="message-box">
+    <img src="logo.png" alt="Logo Grupo Urca Energia" class="logo" />
     <h1>Acesso Liberado</h1>
     <p>Você finalizou o preenchimento com sucesso.</p>
     <p>Em instantes você será redirecionado e seu acesso será liberado automaticamente.</p>
@@ -118,7 +125,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const baseGrantUrl = params.get("base_grant_url");
-      const continueUrl = params.get("user_continue_url") || "https://gasverde.com.br";
+      const continueUrl = params.get("user_continue_url") || "https://grupoarcaenergia.com.br";
 
       setTimeout(() => {
         if (baseGrantUrl) {
