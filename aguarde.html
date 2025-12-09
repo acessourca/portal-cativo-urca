@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Acesso Liberado</title>
+  <link rel="icon" type="image/svg+xml" href="https://acessogv.github.io/logogv/favicon.svg" />
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #1a1a1a;
+      padding: 20px;
+    }
+
+    /* Vídeo de fundo */
+    #background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Overlay escuro para melhorar legibilidade */
+    .video-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    .message-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      border-radius: 14px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      color: #4d7a53;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      color: #2a2a2a;
+    }
+
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #007a33;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto 0;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 520px) {
+      .message-box {
+        padding: 30px 25px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const baseGrantUrl = params.get("base_grant_url");
+      const continueUrl = params.get("user_continue_url") || "https://gasverde.com.br";
+
+      if (baseGrantUrl) {
+        const grantRedirect = `${baseGrantUrl}?continue_url=${encodeURIComponent(continueUrl)}`;
+        setTimeout(() => {
+          window.location.href = grantRedirect;
+        }, 10000);
+      } else {
+        setTimeout(() => {
+          window.location.href = continueUrl;
+        }, 10000);
+      }
+    });
+  </script>
+</head>
+<body>
+  <!-- Vídeo de fundo -->
+  <video id="background-video" autoplay loop muted playsinline>
+    <source src="background-video.mp4" type="video/mp4">
+    Seu navegador não suporta vídeos HTML5.
+  </video>
+
+  <!-- Overlay escuro -->
+  <div class="video-overlay"></div>
+
+  <!-- Conteúdo principal -->
+  <div class="message-box" role="main">
+    <h1>Acesso Liberado</h1>
+    <p>Você finalizou o preenchimento com sucesso.</p>
+    <p>Em instantes você será redirecionado e seu acesso será liberado automaticamente.</p>
+    <div class="loader" aria-label="Carregando..."></div>
+  </div>
+</body>
+</html>
